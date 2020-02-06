@@ -1,12 +1,172 @@
-﻿<Window x:Class="JapaneseCrosswords.Views.PlayWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:JapaneseCrosswords.Views"
-        mc:Ignorable="d"
-        Title="Play" Height="700" Width="1200">
-    <Grid>
-        
-    </Grid>
-</Window>
+﻿<UserControl x:Class="JapaneseCrosswords.Views.PlayWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:lc="clr-namespace:JapaneseCrosswords.Utility"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <lc:ColorConverter x:Key="ColorConverter" />
+    </UserControl.Resources>
+
+    <StackPanel Orientation="Vertical">
+
+        <Grid x:Name="GridBarraTitulo" Background="#92003e" Margin="0,0,0,10">
+            <Button MaxHeight="50" HorizontalAlignment="Left" Margin="10" Background="#ff0050" BorderBrush="#ff0050" Command="{x:Static materialDesign:Transitioner.MoveFirstCommand}">
+                    <Grid HorizontalAlignment="Right" Width="50">
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="CANCEL" FontFamily="Champagne &amp; Limousines"/>
+                    </Grid>
+                </Button>
+        </Grid>
+
+        <Button Margin="0,0,0,10" Background="#ff0050" BorderBrush="#92003e" Command="{Binding OpenWindowHowToSolveCommand}">How To Solve Japanese Crosswords?</Button>
+        <StackPanel Orientation="Vertical">
+            <StackPanel Orientation="Horizontal">
+                <ScrollViewer HorizontalScrollBarVisibility="Visible" HorizontalAlignment="Left" VerticalAlignment="Top" MaxHeight="600">
+                    <ListBox ItemsSource="{Binding Data}" SelectedIndex="{Binding SelectedIndexData}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="D:\Лабараторные\Языки программирования\JapaneseCrosswords\JapaneseCrosswords\Icons\present.png" MaxWidth="40" MaxHeight="40" Margin="0,0,5,0"/>
+                                    <TextBlock Text="{Binding Name}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                    <TextBlock Text="{Binding Information}" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </ScrollViewer>
+
+                <ScrollViewer Visibility="{Binding TablesVisibility}" HorizontalScrollBarVisibility="Visible" HorizontalAlignment="Left" VerticalAlignment="Top" MaxHeight="580" MaxWidth="1100">
+                    <Grid HorizontalAlignment="Left">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Border BorderBrush="Black" BorderThickness="1" Grid.Column="0" Grid.Row="0" Margin="0,0,0,0">
+                            <Rectangle Fill="Gray" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+                        </Border>
+                        <!--<Border BorderBrush="Black" BorderThickness="1" Margin="0,0,0,0"  Grid.Column="0" Grid.Row="1">
+                    <Grid x:Name="leftGrid">
+
+                    </Grid>
+                </Border>-->
+                        <Border BorderBrush="Black" BorderThickness="1" Grid.Column="0" Grid.Row="1" Margin="0,0,0,0" HorizontalAlignment="Left">
+                            <ItemsControl ItemsSource="{Binding LeftTableItems}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <UniformGrid Columns="{Binding widthLeft, UpdateSourceTrigger=PropertyChanged}" Rows="{Binding Height, UpdateSourceTrigger=PropertyChanged}" IsItemsHost="True"/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <Border BorderBrush="#2b292b" BorderThickness="0.7">
+                                                <TextBlock Width="18" Height="18" Text="{Binding LeftNumber}">
+                                                </TextBlock>
+                                            </Border>
+                                            <Rectangle VerticalAlignment="Bottom" Visibility="{Binding HorizontalLineVisibility}" Stroke="DarkGray" Height="2.5" Fill="DarkGray"/>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </Border>
+
+                        <!--<Border BorderBrush="Black" BorderThickness="1" Margin="0,0,0,0" Grid.Column="1" Grid.Row="0">
+                    <Grid x:Name="topGrid">
+
+                    </Grid>
+                </Border>-->
+                        <Border BorderBrush="Black" BorderThickness="1" Grid.Column="1" Grid.Row="0" Margin="0,0,0,0" VerticalAlignment="Top">
+                            <ItemsControl ItemsSource="{Binding TopTableItems}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <UniformGrid Columns="{Binding Width, UpdateSourceTrigger=PropertyChanged}" Rows="{Binding heightTop, UpdateSourceTrigger=PropertyChanged}" IsItemsHost="True"/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <Border BorderBrush="#2b292b" BorderThickness="0.7">
+                                                <TextBlock Width="18" Height="18" Text="{Binding TopNumber}">
+                                                </TextBlock>
+                                            </Border>
+                                            <Rectangle HorizontalAlignment="Right" Visibility="{Binding VerticalLineVisibility}" Stroke="DarkGray" Width="2.5" Fill="DarkGray"/>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </Border>
+
+                        <!--<Border BorderBrush="Black" BorderThickness="1" Margin="0,0,0,0" Grid.Column="1" Grid.Row="1">
+                    <Grid x:Name="grid">
+                    </Grid>
+                </Border>-->
+                        <Border BorderBrush="Black" BorderThickness="1" Grid.Column="1" Grid.Row="1" Margin="0,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left">
+                            <ItemsControl ItemsSource="{Binding Items}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <UniformGrid Columns="{Binding Width, UpdateSourceTrigger=PropertyChanged}" Rows="{Binding Height, UpdateSourceTrigger=PropertyChanged}" IsItemsHost="True"/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <Border BorderBrush="#2b292b" BorderThickness="0.7">
+                                                <Grid Width="20" Height="20">
+
+                                                    <!--<Image Visibility="{Binding CrossVisibility}" Source="D:\Лабараторные\Языки программирования\JapaneseCrosswords\JapaneseCrosswords\Icons\blackcross.png" />-->
+
+                                                    <!-- привязываем команду Activate к событию MouseLeftButtonUp -->
+                                                    <i:Interaction.Triggers>
+                                                        <i:EventTrigger EventName="MouseLeftButtonUp">
+                                                            <i:InvokeCommandAction Command="{Binding ColorCommand}"/>
+                                                        </i:EventTrigger>
+
+                                                        <i:EventTrigger EventName="MouseRightButtonUp">
+                                                            <i:InvokeCommandAction Command="{Binding VisibilityCommand}"/>
+                                                        </i:EventTrigger>
+
+                                                    </i:Interaction.Triggers>
+                                                    <Grid.Background>
+                                                        <SolidColorBrush Color="{Binding Color, Converter={StaticResource ColorConverter}}"/>
+                                                    </Grid.Background>
+
+                                                    <Grid Visibility="{Binding CrossVisibility}">
+                                                        <Grid.Background>
+                                                            <ImageBrush ImageSource="D:\Лабараторные\Языки программирования\JapaneseCrosswords\JapaneseCrosswords\Icons\blackcross.png"/>
+                                                        </Grid.Background>
+                                                    </Grid>
+
+                                                    <Grid Visibility="{Binding RedCrossVisibility}">
+                                                        <Grid.Background>
+                                                            <ImageBrush ImageSource="D:\Лабараторные\Языки программирования\JapaneseCrosswords\JapaneseCrosswords\Icons\redcross.png"/>
+                                                        </Grid.Background>
+                                                    </Grid>
+
+                                                </Grid>
+                                            </Border>
+                                            <Rectangle VerticalAlignment="Bottom" Visibility="{Binding HorizontalLineVisibility}" Stroke="DarkGray" Height="2.5" Fill="DarkGray"/>
+                                            <Rectangle HorizontalAlignment="Right" Visibility="{Binding VerticalLineVisibility}" Stroke="DarkGray" Width="2.5" Fill="DarkGray"/>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </Border>
+                    </Grid>
+                </ScrollViewer>
+                <WrapPanel Orientation="Vertical">
+                    <Button Background="#ff0050" BorderBrush="#92003e" Margin="50,5,5,5" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Command="{Binding ClearCrosswordCommand}">Clear Crossword</Button>
+                    <Button Background="#ff0050" BorderBrush="#92003e" Margin="50,5,5,5" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Command="{Binding ShowErrorsCommand}">Show Errors</Button>
+                    <Button Background="#ff0050" BorderBrush="#92003e" Margin="50,5,5,5" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Command="{Binding CkeckCrosswordCommand}">Show All Errors</Button>
+                </WrapPanel>
+            </StackPanel>
+        </StackPanel>
+    </StackPanel>
+</UserControl>

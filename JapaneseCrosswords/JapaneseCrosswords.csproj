@@ -14,6 +14,8 @@
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -35,8 +37,21 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MaterialDesignColors, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MaterialDesignColors.1.2.1\lib\net45\MaterialDesignColors.dll</HintPath>
+    </Reference>
+    <Reference Include="MaterialDesignThemes.Wpf, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MaterialDesignThemes.3.0.0\lib\net45\MaterialDesignThemes.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Expression.Interactions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\Microsoft.Expression.Interactions.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -55,10 +70,28 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ViewModels\ComposeACrossword\MainTable.cs" />
-    <Compile Include="OnPropertyChangedClass.cs" />
-    <Compile Include="RelayCommand.cs" />
+    <Compile Include="Models\MainTable.cs" />
+    <Compile Include="Models\Solution.cs" />
+    <Compile Include="Models\Tables.cs" />
+    <Compile Include="Utility\ColorConverter.cs" />
+    <Compile Include="Utility\FileManager\DefaultDialogService.cs" />
+    <Compile Include="Utility\FileManager\FolderData.cs" />
+    <Compile Include="Utility\FileManager\IDialogService.cs" />
+    <Compile Include="Utility\FileManager\IFileService.cs" />
+    <Compile Include="ViewModels\BinaryFileService.cs" />
+    <Compile Include="ViewModels\CommonViewModels\MainTable\ItemVM.cs" />
+    <Compile Include="ViewModels\CommonViewModels\LeftTable\LeftTableItem.cs" />
+    <Compile Include="Utility\OnPropertyChangedClass.cs" />
+    <Compile Include="Utility\RelayCommand.cs" />
     <Compile Include="NewControls\NumberTextBox.cs" />
+    <Compile Include="ViewModels\CommonViewModels\MainTable\MainVM.cs" />
+    <Compile Include="ViewModels\CommonViewModels\TopTable\TopTableItem.cs" />
+    <Compile Include="Views\HowToSolveJapaneseCrosswordsWindow.xaml.cs">
+      <DependentUpon>HowToSolveJapaneseCrosswordsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MainMainWindow.xaml.cs">
+      <DependentUpon>MainMainWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\PlayWindow.xaml.cs">
       <DependentUpon>PlayWindow.xaml</DependentUpon>
     </Compile>
@@ -66,6 +99,14 @@
       <DependentUpon>SolveCrosswordWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="Views\ComposeACrosswordWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\HowToSolveJapaneseCrosswordsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MainMainWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -80,7 +121,6 @@
     <Compile Include="Views\ComposeACrosswordWindow.xaml.cs">
       <DependentUpon>ComposeACrosswordWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\OpenWindow.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -112,6 +152,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -121,7 +162,16 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Models\" />
+    <Resource Include="Images\1.png" />
+    <Resource Include="Images\2.png" />
+    <Resource Include="Images\3.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\MaterialDesignThemes.3.0.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.3.0.0\build\MaterialDesignThemes.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\MaterialDesignThemes.3.0.0\build\MaterialDesignThemes.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MaterialDesignThemes.3.0.0\build\MaterialDesignThemes.targets'))" />
+  </Target>
 </Project>

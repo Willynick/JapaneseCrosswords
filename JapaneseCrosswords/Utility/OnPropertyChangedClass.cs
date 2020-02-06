@@ -5,7 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
-namespace Utility
+namespace JapaneseCrosswords.Utility
 {
     /// <summary>Базовый класс с реализацией INPC </summary>
     public class OnPropertyChangedClass : INotifyPropertyChanged

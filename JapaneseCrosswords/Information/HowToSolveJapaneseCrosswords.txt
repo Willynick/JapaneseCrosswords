@@ -1,0 +1,43 @@
+Japanese crosswords
+A Japanese crossword - is a puzzle, which has a picture encoded in numbers. The aim of the puzzle is to restore this picture in full.
+
+Japanese crosswords can be of two types - black and white and colour. In black and white crosswords the picture contains only two 
+colours - black (we paint using this colour) and white (background colour). In colour crosswords the picture is reproduced by several 
+colours against white background.
+
+
+A field of a Japanese crossword is lined both horizontally and vertically with lines of different thickness. The thickest lines separate 
+the central part (field of the picture) from numbers. With the help of thinner lines the field is divided into groups of 5 squares 
+(both horizontally and vertically) - it is made only for convenience (it is more convenient to count width/height of the groups of 
+squares. The picture itself in a Japanese crossword is formed by painting separate squares (central part) using necessary colour. 
+While an unpainted square is supposed to be white.
+
+Numbers, shown on the left and above the crossword - describe the groups of painted squares (which go in sequence, no blanks) 
+horizontally and vertically accordingly. The order of these numbers describes the order of location of these groups, but it is 
+unknown where each group starts and finishes (in fact it is the task of the puzzle to define their location). Each separate 
+number means a separate group of the given size (i.e. number 5 - means a group of five painted squares in sequence, 1 - a 
+group of only one painted square). In black and white crosswords we always paint the square black, in colour ones - we 
+paint the square using the colour by which the number is marked. Between the groups of one colour there should be at least 
+one unpainted square (otherwise they would make one group). Between groups of different colour there can be no empty squares.
+
+
+The main requirement to Japanese crosswords is that the crossword should have only one logical solution, achieved without 
+any "guessing" (method of trial and error). But unfortunately it is quite often possible to find crosswords with several variants 
+of solution, or crosswords which can't be solved by purely analytical methods. Sometimes there are even crosswords with mistakes 
+(or more exactly misprints) which make the crossword unsolvable at all. By thi reason we recommend beginners not to pay attention 
+to cheap newspapers/magazines with Japanese crosswords and to treat Japanese crosswords in newspapers not specializing 
+on this very kind of crosswords cautiously, as you may often find mistakes in such issues. Also we would like to note that 
+we guarantee our crosswords, that all of them have no mistakes and have only one solution achieved without any "guessing".
+
+
+To solve a Japanese crossword a person should look at each line/column separately, always moving to the next column and lines.
+ In so doing the process of solving in each line/column comes to the following:
+
+To define the squares which are sure to be painted (with any possible location of the groups) - so we paint them To define
+ the squares in which it is impossible to have painted squares - such squares are marked with a cross 
+(sometimes a bullet point is used instead of a cross) To define the numbers, which location is already 
+identified - usually these numbers are crossed out.
+
+Thus, gradually there are marks in the field which help to identify new marks step by step, then 
+more and more marks until finally the crossword is completely solved (it should be noted that if even only one mark is 
+put incorrectly - it may lead to a deadlock solution).
